@@ -1,0 +1,110 @@
+To help us understand the importance of firewalls in cybersecurity by 
+designing and implementing a simple Linux firewall policy using UFW 
+(Uncomplicated Firewall), then testing its effectiveness using tools from Kali 
+Linux. 
+Tools to be used are: Oracle virtual box, Kali Linux VM and Ubuntu VM 
+Services to be used are: UFW, Nmap and SSH 
+UFW (Uncomplicated Firewall) rules are specific instructions that dictate how 
+the Uncomplicated Firewall (UFW) handle incoming and outgoing network 
+traffic. They define which connections are allowed, denied, or limited based on 
+various criteria like ports, protocols, and IP addresses. 
+There is need to ascertain that we have ufw installed before starting, below is 
+the command to use in order to accomplish that. 
+Ensure to disable all the pre-configured firewall rules before setting up the 
+rules. to do this, there is need to reset the service to deactivate the rules. 
+Further ensure that ufw status is inactive as shown above 
+Proceed to create all the default policies which is that we deny all incoming 
+connections and allow all outgoing connections as follows: 
+Please note all the above is to be done while the ufw service is still inactive as 
+seen above. 
+We can start configuring additional rules by specifying ports/protocols that can 
+access the network 
+This above step is very important in order to determine what services are 
+needed to be kept active and accessible, what services needs to be 
+inaccessible and even some that needs to be accessed by specific ports only. 
+In this case, we need to keep http (port 80) and https (port 443) active for web 
+services, we can also allow ssh (port 22) which will enable remote connection 
+using other hosts. 
+Activate the ufw configured rules we configured by logging on and enabling 
+the service accordingly 
+We can use the command sudo ufw status to see the configired UFW rules 
+and their status, as shown below 
+Now lets try to use Nmap service on our kali linux to scan the ubutu VM for 
+open ports, below is the response 
+as it can be seen, ports 22, 80 and 443 are opened 
+Lets proceed to remotely access the ubuntu VM from the Kali Linux via ssh 
+From the above it can be noted that the ssh worked because we have been 
+able to successful remotely access the ubuntu network from Kali Linux. 
+But what we want for this project is to block ssh so that ubuntu will be 
+inaccessible remotely, so let us go ahead and block ssh. 
+In order to achieve this, there is need to create a ufw rule on ubuntu that will 
+not enable connection from any other ports except itself. 
+The rule has been added accordingly from the above. 
+This new rule is actually useless because there is already a rule that states 
+allow ssh connection from anywhere. In order for this new rule to hold, there is 
+need for the general rule to be deleted. 
+Below is the instruction needed to accomplish this. From the screenshot, the 
+general rules are in number 3 and number 7, therefore, we will go ahead and 
+delete the 2 rules in order for rule 4 to hold 
+
+The 2 rules have been deleted accordingly as shown below . 
+  
+ 
+Now lets go ahead and see what happens on our Kali linux by using Nmap to scan 
+for available ports 
+ 
+ 
+It can be seen from the above that port 22 is no longer accessible to any external 
+ports 
+ 
+ 
+Furthermore, below screenshot show that we are also no longer able to remotely 
+access the Ubuntu from kali linux. 
+ 
+This project has been able to demonstrate how we can create UFW firewall policy to 
+allow web access (http and https) and block SSH from unknown IPs. 
+The project was Implemented using UFW on Ubuntu. 
+Use Kali Linux to simulate different network scans and connection attempts. 
+Firewalls effectively mitigate unauthorized access and network enumeration by acting 
+as a barrier between a network and external sources, carefully filtering and 
+controlling network traffic based on predefined security rules. 
+By monitoring and inspecting traffic, firewalls can detect and block malicious or 
+suspicious activity, preventing unauthorized users from accessing the network and 
+enumerating its resources. 
+Firewalls analyze network traffic based on rules (e.g., IP addresses, ports, protocols) 
+to determine which traffic is allowed and which is blocked. This allows administrators 
+to control which sources can connect to specific services or resources within the 
+network. 
+ACLs within firewalls define specific rules for granting or denying access to network 
+resources based on various criteria. 
+With stateful Inspection, firewalls is able track the state of active connections and 
+make decisions based on the context of the traffic, blocking unwanted communication 
+attempts. 
+Firewalls can be configured to restrict incoming and outgoing network traffic, reducing 
+the attack surface and minimizing the exposure of sensitive information. 
+By blocking access to unnecessary ports and protocols, organizations can 
+significantly reduce the likelihood of enumeration attempts being successful. 
+Firewalls inspects the contents of data packets, enabling them to identify and block 
+specific types of traffic, such as malicious code or prohibited file types. 
+Firewalls can be integrated with IPS capabilities to detect and block malicious traffic 
+associated with enumeration attempts. 
+They act as a gatekeeper between the network and external threats, preventing 
+unauthorized access. 
+This project provided us with valuable hands-on experience in understanding and 
+implementing basic firewall security on a Linux system. By designing and applying a 
+firewall policy using UFW (or iptables), we learned how to control traffic, allowing only 
+trusted connections while blocking potentially harmful or unauthorized access. 
+Testing the firewall using Kali Linux tools like Nmap gave us a practical insight into 
+how attackers might attempt to scan or exploit open ports. Observing how the firewall 
+reacted to these attempts helped reinforce the importance of defensive cybersecurity 
+practices. 
+One key takeaway is how critical firewall configuration is in the broader context of 
+system hardening. Even a simple policy, if correctly implemented, can significantly 
+reduce the attack surface of a system. 
+Overall, this project has deepened our understanding of: 
+Network security fundamentals 
+The importance of restricting access based on IP and port 
+The practical use of cybersecurity tools and Linux command-line utilities 
+We hope that this project shows others how straightforward and powerful basic 
+firewall setups can be. It emphasizes the value of preventative security and 
+encourages proactive defense strategies in real-world environments.
